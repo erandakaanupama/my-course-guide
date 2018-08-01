@@ -4,28 +4,33 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.eab.demo.entity.Customer;
+import com.eab.demo.entity.Instructor;
+import com.eab.demo.entity.InstructorDetail;
 
-public class CreateCustomer {
+public class DeleteDemo {
 
 	public static void main(String[] args) {
 
-		// create session factory
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Customer.class).buildSessionFactory();
-
-		// create session
+				.addAnnotatedClass(Instructor.class).addAnnotatedClass(InstructorDetail.class).buildSessionFactory();
+		
 		Session session = sessionFactory.getCurrentSession();
-
+		
 		try {
+			int theId = 1; 
 			session.beginTransaction();
-			session.save(new Customer("erandaka", "bandara", "eab@mail.com"));
+			
+			Instructor instructor = session.get(Instructor.class, theId);
+			session.delete(instructor);
+			
 			session.getTransaction().commit();
-			System.out.println("done");
+			System.out.println("delete complete");
 			
 		} finally {
+			
 			sessionFactory.close();
 		}
+	
 	}
 
 }

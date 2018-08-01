@@ -8,7 +8,7 @@
 
         <!-- JDBC Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/customer_shoping_cart?useSSL=false</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/my-course-guide?useSSL=false</property>
         <property name="connection.username">shopingcart</property>
         <property name="connection.password">shopingcart</property>
 
