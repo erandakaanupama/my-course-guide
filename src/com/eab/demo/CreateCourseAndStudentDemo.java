@@ -5,42 +5,48 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.eab.demo.entity.Course;
-import com.eab.demo.entity.Student;
 import com.eab.demo.entity.Instructor;
 import com.eab.demo.entity.InstructorDetail;
+import com.eab.demo.entity.Review;
+import com.eab.demo.entity.Student;
 
-public class CreateInstructorDemo {
+public class CreateCourseAndStudentDemo {
 
 	public static void main(String[] args) {
-
+		
 		// create session factory
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Instructor.class).addAnnotatedClass(InstructorDetail.class)
 				.addAnnotatedClass(Course.class)
+				.addAnnotatedClass(Review.class)
+				.addAnnotatedClass(Instructor.class)
+				.addAnnotatedClass(InstructorDetail.class)
+				.addAnnotatedClass(Student.class)
 				.buildSessionFactory();
-
-		// create session
+		
+		// create a session
 		Session session = sessionFactory.getCurrentSession();
-
+		
 		try {
-			Instructor instructor = new Instructor("ins_fname", "ins_lname", "1@mail.com");
-			InstructorDetail instructorDetail = new InstructorDetail("ins1_ytube", "cricket");
+			// begin transaction
+			session.beginTransaction(); 
 			
-			// associate the objects
-			instructor.setInstructorDetail(instructorDetail);
+			// create a course
+			Course course = new Course("c#");
+			course.add(new Review("wow"));
+			course.add(new Review("super"));
+			course.add(new Review("nice..."));
 			
-			session.beginTransaction();
+			session.save(course);
 			
-			// save instructore
-			System.out.println("saving instructor" + instructor);
-			session.save(instructor);
-			
+			// commit transaction
 			session.getTransaction().commit();
 			System.out.println("done");
+			
 		} finally {
 			session.close();
 			sessionFactory.close();
 		}
+
 	}
 
 }

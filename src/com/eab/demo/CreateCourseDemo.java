@@ -5,7 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.eab.demo.entity.Course;
-import com.eab.demo.entity.Customer;
+import com.eab.demo.entity.Student;
 import com.eab.demo.entity.Instructor;
 import com.eab.demo.entity.InstructorDetail;
 
